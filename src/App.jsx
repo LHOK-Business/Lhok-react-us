@@ -45,17 +45,19 @@ function App() {
             <Header />
             <main>
                 <Routes>
-                <Route path="/" element={<Home />} />
+                    {/* add beta banner below */}
+                <Route path="/" element={<Home />} /> 
                 <Route path="/about"   element={<About />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/StyleSheet" element={<StyleSheet />} />
-                <Route path="/login" element={<Login />} />
+                {/* add one for feedback */}
+                {/* <Route path="/StyleSheet" element={<StyleSheet />} /> */}
+                {/* <Route path="/login" element={<Login />} /> */}
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/professionals" element={<Professionals />} />
-                <Route path="/terms" element={<TnC />} />
-                <Route path="/privacy" element={<PnP />} />
+                {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                {/* <Route path="/admin" element={<Admin />} /> */}
+                {/* <Route path="/professionals" element={<Professionals />} /> */}
+                {/* <Route path="/terms" element={<TnC />} /> */}
+                {/* <Route path="/privacy" element={<PnP />} /> */}
                 </Routes>
             </main>
             <Footer />
