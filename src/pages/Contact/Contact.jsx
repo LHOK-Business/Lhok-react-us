@@ -7,6 +7,7 @@ import styles       from './Contact.module.css';
 
 import { db } from '../../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useToast } from '../../context/ToastContext';
 
 const SUBJECT_OPTIONS = [
   { value: 'general',  label: 'General Inquiry' },
@@ -22,6 +23,7 @@ function Contact() {
     name: '', email: '', phone: '', subject: '', message: '',
   });
   const [errors, setErrors] = useState({});
+  const showToast = useToast();
 
   const handleChange = (field) => (e) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
@@ -45,9 +47,10 @@ function Contact() {
     const newErrors = validate();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      showToast('Please fill out all required fields.', 'warning');
       return;
     }
-  
+
     try {
       // addDoc creates a new document in the 'contacts' collection
       // serverTimestamp() tells Firestore to record the exact server time
@@ -59,14 +62,14 @@ function Contact() {
         message:   form.message,
         createdAt: serverTimestamp(),
       });
-  
+
       // Reset form on success
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-      alert('Message sent successfully!');
-  
+      showToast('Message sent successfully!', 'success');
+
     } catch (error) {
       console.error('Firebase error:', error);
-      alert('Something went wrong. Please try again.');
+      showToast('Something went wrong. Please try again.', 'error');
     }
   };
 

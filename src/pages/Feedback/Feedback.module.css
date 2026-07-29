@@ -29,17 +29,6 @@
   font-size: var(--font-size-small);
 }
 
-/* Status message */
-.message {
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-md);
-  font-size: var(--font-size-small);
-  text-align: center;
-}
-.success { background-color: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
-.error   { background-color: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
-
 /* Form fields stack vertically with consistent gap */
 .form {
   display: flex;

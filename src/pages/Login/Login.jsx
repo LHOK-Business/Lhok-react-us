@@ -26,6 +26,7 @@ import { auth, googleProvider, db } from '../../firebase/config';
 import FormInput from '../../components/FormInput/FormInput';
 import Button    from '../../components/Button/Button';
 import styles    from './Login.module.css';
+import { useToast } from '../../context/ToastContext';
 
 function Login() {
   // ── STATE ──────────────────────────────────────────────────
@@ -40,13 +41,11 @@ function Login() {
     password:  '',
   });
 
-  // Single error string shown below the form
-  const [error, setError] = useState('');
-
   // Disables buttons while Firebase is working to prevent double-clicks
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const showToast = useToast();
 
   // ── AUTH REDIRECT ──────────────────────────────────────────
   // If user is already logged in when they visit /login, send them to dashboard
@@ -64,15 +63,13 @@ function Login() {
   // Example: handleChange('email') returns (e) => setForm({...form, email: e.target.value})
   const handleChange = (field) => (e) => {
     setForm(prev => ({ ...prev, [field]: e.target.value }));
-    setError(''); // Clear error as user types
   };
 
   // ── TOGGLE SIGN IN / SIGN UP ───────────────────────────────
-  // Resets form and errors when switching modes
+  // Resets form when switching modes
   const handleToggle = () => {
     setIsSignUp(prev => !prev);
     setForm({ firstName: '', lastName: '', email: '', password: '' });
-    setError('');
   };
 
   // ── VALIDATION ─────────────────────────────────────────────
@@ -92,7 +89,7 @@ function Login() {
     e.preventDefault(); // Prevent page reload on form submit
 
     const validationError = validate();
-    if (validationError) { setError(validationError); return; }
+    if (validationError) { showToast(validationError, 'warning'); return; }
 
     setLoading(true);
     try {
@@ -160,7 +157,7 @@ function Login() {
 
     } catch (err) {
       // Convert Firebase error codes to friendly messages
-      setError(friendlyError(err.code));
+      showToast(friendlyError(err.code), 'error');
     } finally {
       // Always re-enable the button, whether success or failure
       setLoading(false);
@@ -177,7 +174,7 @@ function Login() {
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err) {
-      setError(friendlyError(err.code));
+      showToast(friendlyError(err.code), 'error');
     } finally {
       setLoading(false);
     }
@@ -246,9 +243,6 @@ function Login() {
             onChange={handleChange('password')}
             placeholder="Enter password"
           />
-
-          {/* Error message — only renders if error string is not empty */}
-          {error && <p className={styles.errorText}>{error}</p>}
 
           {/* Toggle between Sign In and Sign Up */}
           <button

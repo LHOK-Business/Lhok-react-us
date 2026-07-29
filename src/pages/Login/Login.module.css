@@ -26,13 +26,6 @@
   gap: var(--spacing-md);
 }
 
-.errorText {
-  font-size: var(--font-size-small);
-  color: #e53e3e;
-  text-align: center;
-  margin: 0;
-}
-
 /* Toggle link — styled like a subtle text button */
 .toggleButton {
   background: none;

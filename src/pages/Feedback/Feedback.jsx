@@ -13,6 +13,7 @@ import styles       from './Feedback.module.css';
 
 import { db } from '../../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useToast } from '../../context/ToastContext';
 
 // ── OPTIONS ───────────────────────────────────────────────────
 const FIND_METHOD_OPTIONS = [
@@ -113,7 +114,7 @@ function Feedback() {
     email:              '',
   });
   const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState({ text: '', type: '' });
+  const showToast = useToast();
 
   const handleTextChange = (field) => (e) =>
     setForm(prev => ({ ...prev, [field]: e.target.value }));
@@ -128,11 +129,6 @@ function Feedback() {
         ? prev[field].filter(v => v !== opt)
         : [...prev[field], opt],
     }));
-
-  const showMessage = (text, type) => {
-    setMessage({ text, type });
-    if (type === 'success') setTimeout(() => setMessage({ text: '', type: '' }), 5000);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,10 +147,10 @@ function Feedback() {
         priorities: [], prioritiesOther: '',
         otherFeedback: '', email: '',
       });
-      showMessage('Thanks for your feedback!', 'success');
+      showToast('Thanks for your feedback!', 'success');
     } catch (error) {
       console.error('Firebase error:', error);
-      showMessage('Something went wrong. Please try again.', 'error');
+      showToast('Something went wrong. Please try again.', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -168,12 +164,6 @@ function Feedback() {
           No account needed — just a few quick questions about your experience
           finding beauty professionals.
         </p>
-
-        {message.text && (
-          <div className={`${styles.message} ${styles[message.type]}`}>
-            {message.text}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} noValidate className={styles.form}>
           <PillQuestion

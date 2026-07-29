@@ -1,0 +1,65 @@
+/* Fixed stack in the top-right corner, above everything else on the page */
+.toastContainer {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--z-index-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 360px;
+  width: calc(100% - 2 * var(--spacing-lg));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-small);
+  animation: toastIn var(--transition-speed-slow) var(--transition-easing);
+  pointer-events: auto;
+}
+
+.toastMessage {
+  flex: 1;
+}
+
+.toastClose {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--font-size-body);
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.toastClose:hover {
+  opacity: 1;
+}
+
+/* Success = green, Warning = yellow (missing/invalid input), Error = red */
+.success { background-color: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.warning { background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.error   { background-color: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .toastContainer {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    left: var(--spacing-md);
+    max-width: none;
+    width: auto;
+  }
+}

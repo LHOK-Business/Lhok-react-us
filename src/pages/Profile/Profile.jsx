@@ -23,6 +23,7 @@ import FormTextarea from '../../components/FormTextarea/FormTextarea';
 import FormSelect   from '../../components/FormSelect/FormSelect';
 import Button       from '../../components/Button/Button';
 import styles       from './Profile.module.css';
+import { useToast } from '../../context/ToastContext';
 
 // ── DROPDOWN OPTIONS ──────────────────────────────────────────
 const SPECIALTY_OPTIONS = [
@@ -97,7 +98,7 @@ function Profile() {
 
   // ── UI STATE ───────────────────────────────────────────────
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ text: '', type: '' });
+  const showToast = useToast();
 
   // ── AUTH CHECK ─────────────────────────────────────────────
   useEffect(() => {
@@ -155,10 +156,9 @@ function Profile() {
           setPhotoPreview(data.profilePhotoURL);
         }
 
-        showMessage('Profile data loaded', 'success');
       }
     } catch (error) {
-      showMessage('Error loading profile: ' + error.message, 'error');
+      showToast('Error loading profile: ' + error.message, 'error');
     }
   };
 
@@ -189,8 +189,8 @@ function Profile() {
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { showMessage('Image must be smaller than 5MB', 'error'); return; }
-    if (!file.type.startsWith('image/')) { showMessage('Please select an image file', 'error'); return; }
+    if (file.size > 5 * 1024 * 1024) { showToast('Image must be smaller than 5MB', 'warning'); return; }
+    if (!file.type.startsWith('image/')) { showToast('Please select an image file', 'warning'); return; }
     setPhotoFile(file);
     setPhotoPreview(URL.createObjectURL(file));
   };
@@ -220,12 +220,6 @@ function Profile() {
     } catch (e) { console.error('Old photo delete failed (non-critical):', e); }
   };
 
-  // ── SHOW MESSAGE ───────────────────────────────────────────
-  const showMessage = (text, type) => {
-    setMessage({ text, type });
-    if (type === 'success') setTimeout(() => setMessage({ text: '', type: '' }), 5000);
-  };
-
   // ── SAVE PROFILE ───────────────────────────────────────────
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -236,7 +230,6 @@ function Profile() {
       // Upload new photo if selected
       let newPhotoURL = photoURL;
       if (photoFile) {
-        showMessage('Uploading photo...', 'success');
         newPhotoURL = await uploadPhoto(photoFile, currentUser.uid);
         await deleteOldPhoto(photoURL);
         setPhotoURL(newPhotoURL);
@@ -278,7 +271,7 @@ function Profile() {
 
       if (userDoc.exists()) {
         await updateDoc(userDocRef, profileData);
-        showMessage('Profile updated successfully!', 'success');
+        showToast('Profile updated successfully!', 'success');
       } else {
         // Fallback: create doc if signup somehow didn't create it
         await setDoc(userDocRef, {
@@ -288,7 +281,7 @@ function Profile() {
           approvedAt: userType === 'professional' ? null  : undefined,
           createdAt:  serverTimestamp(),
         });
-        showMessage(
+        showToast(
           userType === 'professional'
             ? 'Profile created! Awaiting admin approval.'
             : 'Profile created successfully!',
@@ -300,7 +293,7 @@ function Profile() {
       setUserTypeConfirmed(true);
 
     } catch (error) {
-      showMessage('Error saving profile: ' + error.message, 'error');
+      showToast('Error saving profile: ' + error.message, 'error');
     } finally {
       setLoading(false);
     }
@@ -317,12 +310,6 @@ function Profile() {
           <p className={styles.loggedIn}>
             Logged in as: <strong>{currentUser.email}</strong>
           </p>
-        )}
-
-        {message.text && (
-          <div className={`${styles.message} ${styles[message.type]}`}>
-            {message.text}
-          </div>
         )}
 
         <form onSubmit={handleSubmit} noValidate className={styles.form}>

@@ -21,6 +21,7 @@
 
 import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import { ToastProvider } from './context/ToastContext';
 //Components
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -41,13 +42,14 @@ import Feedback from './pages/Feedback/Feedback';
 
 function App() {
     return (
+        <ToastProvider>
         <HashRouter>
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <Header />
             <main>
                 <Routes>
                     {/* add beta banner below */}
-                <Route path="/" element={<Home />} /> 
+                <Route path="/" element={<Home />} />
                 <Route path="/about"   element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 {/* add one for feedback */}
@@ -65,6 +67,7 @@ function App() {
             <MobileTabBar />
             </div>
         </HashRouter>
+        </ToastProvider>
     );
 }
 
