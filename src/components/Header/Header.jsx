@@ -25,6 +25,7 @@ import logo from '../../assets/lhoklogo.png';
 const NAV_ITEMS = [
   { label: 'Contact Us',    to: '/contact' },
   { label: 'Professionals', to: '/professionals' },
+  { label: 'Feedback',      to: '/feedback' },
 ];
 
 function Header() {

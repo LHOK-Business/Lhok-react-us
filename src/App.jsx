@@ -33,6 +33,7 @@ import StyleSheet from './pages/StyleSheet/StyleSheet';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Feedback from './pages/Feedback/Feedback';
 import Admin from './pages/Admin/Admin';
 import Professionals from './pages/Professionals/Professionals';
 import TnC   from './pages/TnC/TnC';
@@ -52,7 +53,7 @@ function App() {
                 {/* add one for feedback */}
                 {/* <Route path="/StyleSheet" element={<StyleSheet />} /> */}
                 {/* <Route path="/login" element={<Login />} /> */}
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/feedback" element={<Feedback />} />
                 {/* <Route path="/dashboard" element={<Dashboard />} /> */}
                 {/* <Route path="/admin" element={<Admin />} /> */}
                 {/* <Route path="/professionals" element={<Professionals />} /> */}

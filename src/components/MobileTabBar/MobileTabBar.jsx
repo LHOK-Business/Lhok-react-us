@@ -26,10 +26,9 @@ const UsersIcon = (props) => (
   </svg>
 );
 
-const UserIcon = (props) => (
+const FeedbackIcon = (props) => (
   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
   </svg>
 );
 
@@ -44,7 +43,7 @@ const TABS = [
   { label: 'Home',        to: '/',            Icon: HomeIcon   },
   { label: 'Search',      to: '/search',       Icon: SearchIcon },
   { label: 'Communities', to: '/communities',  Icon: UsersIcon  },
-  { label: 'Profile',     to: '/profile',      Icon: UserIcon   },
+  { label: 'Feedback',    to: '/feedback',     Icon: FeedbackIcon },
   { label: 'Contact',     to: '/contact',      Icon: MailIcon   },
 ];
 

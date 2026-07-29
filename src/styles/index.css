@@ -26,11 +26,18 @@ img, video {
   display: block;
 }
 
-/* Remove default button styling — we'll style buttons ourselves */
+/* Remove default button styling — we'll style buttons ourselves.
+   background-color/color/appearance are reset explicitly because mobile
+   browsers otherwise apply native control colors (especially in OS dark
+   mode) that can override a button's custom background and hide its text. */
 button {
   border: none;
   cursor: pointer;
   font: inherit; /* buttons don't inherit font by default — this fixes that */
+  background-color: transparent;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Remove default link underline — we style links ourselves */
@@ -81,6 +88,11 @@ body {
 
 
 :root {
+    /* This site is light-only — telling the browser explicitly stops
+       mobile OS dark mode from re-coloring native form controls
+       (buttons, selects, inputs) out from under our custom styles. */
+    color-scheme: light;
+
     /* ============================================
        COLORS
        ============================================ x:var(-- lets you search the color you want */
