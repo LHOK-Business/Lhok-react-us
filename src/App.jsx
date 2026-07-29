@@ -29,15 +29,15 @@ import MobileTabBar from './components/MobileTabBar/MobileTabBar';
 import About   from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import Home    from './pages/Home/Home';
-import StyleSheet from './pages/StyleSheet/StyleSheet';
-import Login from './pages/Login/Login';
-import Profile from './pages/Profile/Profile';
-import Dashboard from './pages/Dashboard/Dashboard';
 import Feedback from './pages/Feedback/Feedback';
-import Admin from './pages/Admin/Admin';
-import Professionals from './pages/Professionals/Professionals';
-import TnC   from './pages/TnC/TnC';
-import PnP   from './pages/PnP/PnP';
+// import StyleSheet from './pages/StyleSheet/StyleSheet';
+// import Login from './pages/Login/Login';
+// import Profile from './pages/Profile/Profile';
+// import Dashboard from './pages/Dashboard/Dashboard';
+// import Admin from './pages/Admin/Admin';
+// import Professionals from './pages/Professionals/Professionals';
+// import TnC   from './pages/TnC/TnC';
+// import PnP   from './pages/PnP/PnP';
 
 function App() {
     return (

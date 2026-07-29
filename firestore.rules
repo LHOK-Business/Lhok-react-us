@@ -1,0 +1,142 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ========================================
+    // HELPER FUNCTIONS
+    // ========================================
+
+    // Check if user is authenticated (logged in)
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Check if user is the owner of the document
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Check if user is admin
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email in [
+        "hunain.jd@gmail.com",
+        "jenngbari@gmail.com",
+        "angeleenmatti@gmail.com",
+        "lhok.business@gmail.com"
+      ];
+    }
+
+    // ========================================
+    // CONTACT SUBMISSIONS COLLECTION
+    // ========================================
+    // Path: /contactSubmissions/{submissionId}
+
+    match /contactSubmissions/{submissionId} {
+      // Anyone can create contact form submissions (even non-logged-in users)
+      allow create: if request.auth == null || isSignedIn();
+
+      // Only admins can read contact submissions (via Firebase Console)
+      allow read: if isAdmin();
+
+      // No one can update or delete (admins use console)
+      allow update, delete: if false;
+    }
+
+    // ========================================
+    // FEEDBACK COLLECTION
+    // ========================================
+    // Path: /feedback/{feedbackId}
+    // Public feedback survey — no login required to submit.
+
+    match /feedback/{feedbackId} {
+      // Anyone can submit feedback (even non-logged-in users)
+      allow create: if request.auth == null || isSignedIn();
+
+      // Only admins can read feedback (via Firebase Console)
+      allow read: if isAdmin();
+
+      // No one can update or delete (admins use console)
+      allow update, delete: if false;
+    }
+
+    // ========================================
+    // USERS COLLECTION (User Profiles)
+    // ========================================
+    // Path: /users/{userId}
+
+    match /users/{userId} {
+
+      // --- READ RULES ---
+      // Who can read a user profile?
+      // 1. The profile owner can always read their own profile
+      // 2. Anyone can read profiles that are approved (for public display)
+      // 3. Admins can read all profiles
+   allow read: if isOwner(userId)
+            || (resource != null && resource.data.approved == true)
+            || isAdmin();
+
+      // --- CREATE RULES ---
+      // Who can create a new profile?
+      // 1. User must be authenticated (logged in)
+      // 2. User can only create their own profile (userId matches their auth.uid)
+      // 3. New profiles must have approved set to false (prevents self-approval)
+      // 4. Prevents users from writing unexpected large data
+    allow create: if isSignedIn()
+            && request.auth.uid == userId
+            && (
+              // Professionals must set approved: false
+              (request.resource.data.userType == 'professional'
+                && request.resource.data.approved == false)
+              ||
+              // Clients don't have an approved field
+              (request.resource.data.userType == 'client'
+                && !('approved' in request.resource.data))
+            )
+            && request.resource.data.keys().hasOnly([
+              'userType',
+              'displayName', 'bio', 'location', 'instagram',
+              'profilePhotoURL', 'email', 'createdAt', 'updatedAt',
+              // Professional-only fields
+              'website', 'specialties', 'yearsInIndustry',
+              'preferredContact', 'approved', 'approvedAt',
+              // Client-only fields
+              'servicesLookingFor'
+      ]);
+      // --- UPDATE RULES ---
+      // Who can update a profile?
+      // OPTION 1: User updating their own profile
+      //   - User must be the owner
+      //   - User CANNOT change their approval status (approved field must stay the same)
+      // OPTION 2: Admin updating any profile
+      //   - Admin can update anything (including approval status)
+      allow update: if (isOwner(userId) && request.resource.data.approved == resource.data.approved)
+                    || isAdmin();
+
+      // --- DELETE RULES ---
+      // Who can delete a profile?
+      // Only admins can delete profiles
+      allow delete: if isAdmin();
+    }
+
+    // ========================================
+    // DashboardFeedback Polls
+    // ========================================
+    match /dashboardFeedback/{doc} {
+    allow create: if isSignedIn();
+    allow read: if isAdmin();
+    allow update, delete: if false;
+}
+
+
+    // ========================================
+    // FUTURE COLLECTIONS
+    // ========================================
+    // Add more collections here as needed
+    // Example: blog posts, comments, etc.
+
+
+
+
+  }
+}

@@ -68,8 +68,8 @@ function Landing() {
             <li><strong>Beauty professionals</strong>, join us early your spot on Lhok is free and based on the services you offer, not content or views. </li>
           </ul>
 
-          <Link to="/login" className={styles.ctaButton}>
-            Join Lhok
+          <Link to="/about" className={styles.ctaButton}>
+            Who We Are
           </Link>
         </div>
 
