@@ -35,15 +35,6 @@ const EmailIcon = () => (
   </svg>
 );
 
-const exampleProfile = {
-  id: 'example-vvsglow',
-  displayName: 'VVS Glow',
-  specialties: ['Lash Extensions', 'Permanent Jewelry', 'Facials'],
-  bio: 'Lash extensions, permanent jewelry, and facials — serving Miami and Toronto.',
-  location: 'Miami & Toronto',
-  instagram: 'https://www.instagram.com/vvsglow/',
-};
-
 function ProfileCard({ user }) {
   const [copied, setCopied] = useState(false);
 
@@ -182,9 +173,6 @@ function Professionals() {
         <p className={styles.exampleCaption}>
           ✨ See what your profile could look like when you join Lhok
         </p>
-        <div className={styles.exampleWrapper}>
-          <ProfileCard user={exampleProfile} />
-        </div>
       </div>
 
       {loading && (

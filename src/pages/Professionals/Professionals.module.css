@@ -72,12 +72,6 @@
   text-align: center;
   font-weight: var(--font-weight-medium);
   color: var(--color-primary-dark);
-  margin-bottom: var(--spacing-md);
-}
-
-.exampleWrapper {
-  display: flex;
-  justify-content: center;
 }
 
 /* ── CARD ── */
