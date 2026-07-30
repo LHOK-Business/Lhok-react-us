@@ -80,20 +80,6 @@
   justify-content: center;
 }
 
-.exampleBadge {
-  position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  font-size: var(--font-size-tiny);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-}
-
 /* ── CARD ── */
 .card {
   position: relative;

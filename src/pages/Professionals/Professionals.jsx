@@ -42,7 +42,6 @@ const exampleProfile = {
   bio: 'Lash extensions, permanent jewelry, and facials — serving Miami and Toronto.',
   location: 'Miami & Toronto',
   instagram: 'https://www.instagram.com/vvsglow/',
-  isExample: true,
 };
 
 function ProfileCard({ user }) {
@@ -57,10 +56,6 @@ function ProfileCard({ user }) {
 
   return (
     <div className={styles.card}>
-
-      {user.isExample && (
-        <span className={styles.exampleBadge}>Example</span>
-      )}
 
       <div className={styles.avatarWrapper}>
         {user.profilePhotoURL ? (
