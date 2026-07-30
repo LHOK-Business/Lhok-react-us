@@ -31,7 +31,7 @@ function BetaBanner() {
     <div className={styles.banner}>
       <p className={styles.message}>
         <span className={styles.fullText}>
-          🚧 Lhok is in Beta — thanks for being an early user.
+          🚧 Lhok is in Beta. Thanks for being an early user.
         </span>
         <span className={styles.shortText}>🚧 Lhok is in Beta.</span>
         {' '}
