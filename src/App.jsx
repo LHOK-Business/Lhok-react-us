@@ -36,7 +36,7 @@ import Feedback from './pages/Feedback/Feedback';
 // import Profile from './pages/Profile/Profile';
 // import Dashboard from './pages/Dashboard/Dashboard';
 // import Admin from './pages/Admin/Admin';
-// import Professionals from './pages/Professionals/Professionals';
+import Professionals from './pages/Professionals/Professionals';
 // import TnC   from './pages/TnC/TnC';
 // import PnP   from './pages/PnP/PnP';
 
@@ -58,7 +58,7 @@ function App() {
                 <Route path="/feedback" element={<Feedback />} />
                 {/* <Route path="/dashboard" element={<Dashboard />} /> */}
                 {/* <Route path="/admin" element={<Admin />} /> */}
-                {/* <Route path="/professionals" element={<Professionals />} /> */}
+                <Route path="/professionals" element={<Professionals />} />
                 {/* <Route path="/terms" element={<TnC />} /> */}
                 {/* <Route path="/privacy" element={<PnP />} /> */}
                 </Routes>

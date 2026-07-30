@@ -35,6 +35,16 @@ const EmailIcon = () => (
   </svg>
 );
 
+const exampleProfile = {
+  id: 'example-vvsglow',
+  displayName: 'VVS Glow',
+  specialties: ['Lash Extensions', 'Permanent Jewelry', 'Facials'],
+  bio: 'Lash extensions, permanent jewelry, and facials — serving Miami and Toronto.',
+  location: 'Miami & Toronto',
+  instagram: 'https://www.instagram.com/vvsglow/',
+  isExample: true,
+};
+
 function ProfileCard({ user }) {
   const [copied, setCopied] = useState(false);
 
@@ -47,6 +57,10 @@ function ProfileCard({ user }) {
 
   return (
     <div className={styles.card}>
+
+      {user.isExample && (
+        <span className={styles.exampleBadge}>Example</span>
+      )}
 
       <div className={styles.avatarWrapper}>
         {user.profilePhotoURL ? (
@@ -167,6 +181,15 @@ function Professionals() {
       <div className={styles.pageHeader}>
         <h1 className={styles.title}>Start Lhoking</h1>
         <p className={styles.subtitle}>Available professionals</p>
+      </div>
+
+      <div className={styles.exampleSection}>
+        <p className={styles.exampleCaption}>
+          ✨ See what your profile could look like when you join Lhok
+        </p>
+        <div className={styles.exampleWrapper}>
+          <ProfileCard user={exampleProfile} />
+        </div>
       </div>
 
       {loading && (

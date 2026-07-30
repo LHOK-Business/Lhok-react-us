@@ -63,8 +63,40 @@
   gap: var(--spacing-lg);
 }
 
+/* ── EXAMPLE SECTION ── */
+.exampleSection {
+  margin-bottom: var(--spacing-xl);
+}
+
+.exampleCaption {
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.exampleWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.exampleBadge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--font-size-tiny);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+}
+
 /* ── CARD ── */
 .card {
+  position: relative;
   background-color: var(--color-white);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
