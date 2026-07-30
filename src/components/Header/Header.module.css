@@ -23,7 +23,7 @@
    ────────────────────────────────────────────────────────────*/
 .header {
   position: fixed;
-  top: 0;
+  top: var(--banner-height);
   left: 0;
   right: 0;
   height: var(--header-height);
@@ -303,7 +303,7 @@
    ────────────────────────────────────────────────────────────*/
 .mobileMenu {
   position: fixed;                   /* stays below the header even when scrolled */
-  top: var(--header-height);         /* flush against the bottom edge of the header */
+  top: calc(var(--banner-height) + var(--header-height)); /* flush against the bottom edge of the header */
   left: 0;
   right: 0;
   z-index: var(--z-index-dropdown);  /* 100: above content, below header (1000) */

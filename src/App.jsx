@@ -23,6 +23,7 @@ import React from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 //Components
+import BetaBanner from './components/BetaBanner/BetaBanner';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MobileTabBar from './components/MobileTabBar/MobileTabBar';
@@ -45,10 +46,10 @@ function App() {
         <ToastProvider>
         <HashRouter>
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <BetaBanner />
             <Header />
             <main>
                 <Routes>
-                    {/* add beta banner below */}
                 <Route path="/" element={<Home />} />
                 <Route path="/about"   element={<About />} />
                 <Route path="/contact" element={<Contact />} />

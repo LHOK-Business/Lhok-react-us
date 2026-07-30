@@ -1,0 +1,74 @@
+/* ── BANNER ──────────────────────────────────────────────────
+   Fixed above the Header. Height matches --banner-height so
+   Header/mobileMenu/Toast offsets (and body padding-top) stay in sync.
+   ──────────────────────────────────────────────────────────── */
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--banner-height);
+  z-index: var(--z-index-fixed);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color-primary-dark);
+  padding: 0 var(--spacing-xl);
+}
+
+.message {
+  margin: 0;
+  color: var(--color-white);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.shortText {
+  display: none;
+}
+
+.feedbackLink {
+  color: var(--color-white);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.feedbackLink:hover {
+  opacity: 0.85;
+}
+
+.closeButton {
+  position: absolute;
+  right: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  opacity: 0.85;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .fullText {
+    display: none;
+  }
+  .shortText {
+    display: inline;
+  }
+  .banner {
+    padding: 0 var(--spacing-xxl, 2.5rem) 0 var(--spacing-md);
+  }
+}

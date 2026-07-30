@@ -1,7 +1,7 @@
 /* Fixed stack in the top-right corner, above everything else on the page */
 .toastContainer {
   position: fixed;
-  top: var(--spacing-lg);
+  top: calc(var(--banner-height) + var(--spacing-lg));
   right: var(--spacing-lg);
   z-index: var(--z-index-tooltip);
   display: flex;
