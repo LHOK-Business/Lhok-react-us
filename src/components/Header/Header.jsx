@@ -29,7 +29,7 @@ const NAV_ITEMS = [
 ];
 
 function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // burger menu disabled
   const [currentUser, setCurrentUser] = useState(null);
 
   /* Listen to Firebase auth state — runs once on mount, cleans up on unmount */
@@ -104,6 +104,7 @@ function Header() {
               CSS: display:flex on mobile, display:none on desktop (≥768px).
               margin-left:auto in CSS pushes it to the right edge.
               aria-expanded tells screen readers whether the menu is open. */}
+          {/*
           <button
             className={styles.hamburger}
             onClick={() => setIsMobileMenuOpen(prev => !prev)}
@@ -114,6 +115,7 @@ function Header() {
             <span className={styles.hamburgerLine} />
             <span className={styles.hamburgerLine} />
           </button>
+          */}
 
         </div>
       </header>
@@ -123,10 +125,11 @@ function Header() {
           CSS (.mobileMenu) uses position:fixed + top:var(--header-height)
           to pin it flush against the bottom of the header bar — no inline
           style needed here. JSX controls visibility via conditional render. */}
-      {isMobileMenuOpen && (
+      {/*
+      isMobileMenuOpen && (
         <nav className={styles.mobileMenu}>
 
-          {/* Nav links — close the menu on tap so the page change is smooth */}
+          Nav links — close the menu on tap so the page change is smooth
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.label}
@@ -138,7 +141,7 @@ function Header() {
             </NavLink>
           ))}
 
-          {/* Login / My Profile at the bottom of the mobile menu */}
+          Login / My Profile at the bottom of the mobile menu
           {currentUser ? (
             <Link
               to="/profile"
@@ -158,7 +161,8 @@ function Header() {
           )}
 
         </nav>
-      )}
+      )
+      */}
     </>
   );
 }

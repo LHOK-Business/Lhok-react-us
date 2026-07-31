@@ -104,8 +104,8 @@ function About() {
             join us early and help shape what fair discovery in the beauty
             industry should look like.
           </p>
-          <Link to="/login" className={styles.ctaButton}>
-            Join Lhok
+          <Link to="/feedback" className={styles.ctaButton}>
+            Educate Us
           </Link>
         </section>
 

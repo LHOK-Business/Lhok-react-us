@@ -259,7 +259,7 @@
    row when .nav and .loginButton are hidden on mobile.
    ────────────────────────────────────────────────────────────*/
 .hamburger {
-  display: flex; /* MOBILE: visible */
+  display: none; /* burger menu disabled — was: flex (MOBILE: visible) */
   flex-direction: column;
   justify-content: center;
   gap: 5px;
