@@ -7,15 +7,17 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
-// These values come from your .env file.
+// These values come from your .env file — copy .env.example to .env and
+// fill in the real values (ask a teammate). Never hardcode them here;
+// this file is committed to git and .env is not.
 // REACT_APP_ prefix is required by CRA for env variables to work.
 const firebaseConfig = {
-        apiKey: "AIzaSyB2DccAwpNnzfNPhhP6KQJ58xVOEFsLB8Y",
-        authDomain: "lhok-e77ba.firebaseapp.com",
-        projectId: "lhok-e77ba",
-        storageBucket: "lhok-e77ba.firebasestorage.app",
-        messagingSenderId: "228980882242",
-        appId: "1:228980882242:web:6c5a9f0c36544aba03e6db"
+        apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+        authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+        storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase — this runs once when the file is first imported
