@@ -97,6 +97,7 @@ service cloud.firestore {
               'userType',
               'displayName', 'bio', 'location', 'instagram',
               'profilePhotoURL', 'email', 'createdAt', 'updatedAt',
+              'countryOfOrigin',
               // Professional-only fields
               'website', 'specialties', 'yearsInIndustry',
               'preferredContact', 'approved', 'approvedAt',

@@ -33,13 +33,13 @@ import Contact from './pages/Contact/Contact';
 import Home    from './pages/Home/Home';
 import Feedback from './pages/Feedback/Feedback';
 // import StyleSheet from './pages/StyleSheet/StyleSheet';
-// import Login from './pages/Login/Login';
-// import Profile from './pages/Profile/Profile';
-// import Dashboard from './pages/Dashboard/Dashboard';
-// import Admin from './pages/Admin/Admin';
+import Login from './pages/Login/Login';
+import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Admin from './pages/Admin/Admin';
 import Professionals from './pages/Professionals/Professionals';
-// import TnC   from './pages/TnC/TnC';
-// import PnP   from './pages/PnP/PnP';
+import TnC   from './pages/TnC/TnC';
+import PnP   from './pages/PnP/PnP';
 
 function App() {
     return (
@@ -55,13 +55,14 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 {/* add one for feedback */}
                 {/* <Route path="/StyleSheet" element={<StyleSheet />} /> */}
-                {/* <Route path="/login" element={<Login />} /> */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/feedback" element={<Feedback />} />
-                {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-                {/* <Route path="/admin" element={<Admin />} /> */}
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin" element={<Admin />} />
                 <Route path="/professionals" element={<Professionals />} />
-                {/* <Route path="/terms" element={<TnC />} /> */}
-                {/* <Route path="/privacy" element={<PnP />} /> */}
+                <Route path="/terms" element={<TnC />} />
+                <Route path="/privacy" element={<PnP />} />
                 </Routes>
             </main>
             <Footer />

@@ -20,13 +20,14 @@ import {
 } from 'firebase/auth';
 
 // ── NEW: Import Firestore tools to create the initial user document
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 import { auth, googleProvider, db } from '../../firebase/config';
 import FormInput from '../../components/FormInput/FormInput';
 import Button    from '../../components/Button/Button';
 import styles    from './Login.module.css';
 import { useToast } from '../../context/ToastContext';
+import { getCountryOfOrigin } from '../../utils/countryOfOrigin';
 
 function Login() {
   // ── STATE ──────────────────────────────────────────────────
@@ -139,6 +140,9 @@ function Login() {
           // Client-specific empty fields
           servicesLookingFor: [],
 
+          // Which site the account was created on — 'USA' for lhok.us, 'CAN' for the lhok.ca clone
+          countryOfOrigin: getCountryOfOrigin(),
+
           // Timestamps — serverTimestamp() uses Firebase's server clock (not the user's device)
           // This is more reliable than new Date() which depends on the user's system time
           createdAt: serverTimestamp(),
@@ -165,14 +169,45 @@ function Login() {
   };
 
   // ── GOOGLE SIGN-IN ─────────────────────────────────────────
-  // signInWithPopup opens a Google popup window
-  // Note: Google sign-in does NOT create a Firestore doc here.
-  // If you want Google sign-ups to also create a doc, that logic
-  // would need to be added here similarly to the email sign-up above.
+  // signInWithPopup opens a Google popup window.
+  // On a returning user's doc already exists, so we only create one
+  // the first time — mirrors the fallback creation in Profile.jsx.
   const handleGoogle = async () => {
     setLoading(true);
     try {
-      await signInWithPopup(auth, googleProvider);
+      const { user } = await signInWithPopup(auth, googleProvider);
+
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          displayName: user.displayName || '',
+          email:       user.email,
+
+          userType: 'professional',
+
+          approved:   false,
+          approvedAt: null,
+
+          bio:              '',
+          location:         '',
+          instagram:        '',
+          website:          '',
+          profilePhotoURL:  user.photoURL || null,
+
+          specialties:      [],
+          yearsInIndustry:  '',
+          preferredContact: '',
+
+          servicesLookingFor: [],
+
+          countryOfOrigin: getCountryOfOrigin(),
+
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+      }
     } catch (err) {
       showToast(friendlyError(err.code), 'error');
     } finally {

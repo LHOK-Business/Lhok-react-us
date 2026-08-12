@@ -24,6 +24,7 @@ import FormSelect   from '../../components/FormSelect/FormSelect';
 import Button       from '../../components/Button/Button';
 import styles       from './Profile.module.css';
 import { useToast } from '../../context/ToastContext';
+import { getCountryOfOrigin } from '../../utils/countryOfOrigin';
 
 // ── DROPDOWN OPTIONS ──────────────────────────────────────────
 const SPECIALTY_OPTIONS = [
@@ -276,10 +277,11 @@ function Profile() {
         // Fallback: create doc if signup somehow didn't create it
         await setDoc(userDocRef, {
           ...profileData,
-          email:      currentUser.email,
-          approved:   userType === 'professional' ? false : undefined,
-          approvedAt: userType === 'professional' ? null  : undefined,
-          createdAt:  serverTimestamp(),
+          email:           currentUser.email,
+          approved:        userType === 'professional' ? false : undefined,
+          approvedAt:      userType === 'professional' ? null  : undefined,
+          countryOfOrigin: getCountryOfOrigin(),
+          createdAt:       serverTimestamp(),
         });
         showToast(
           userType === 'professional'
