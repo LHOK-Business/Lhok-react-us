@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase/config';
 import styles from './MobileTabBar.module.css';
 
 /* Simple inline SVG icons — no external package needed */
@@ -10,10 +12,10 @@ const HomeIcon = (props) => (
   </svg>
 );
 
-const SearchIcon = (props) => (
+const AccountIcon = (props) => (
   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="11" cy="11" r="8" />
-    <path d="M21 21l-4.35-4.35" />
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
@@ -39,18 +41,32 @@ const MailIcon = (props) => (
   </svg>
 );
 
-const TABS = [
-  { label: 'Home',        to: '/',            Icon: HomeIcon   },
-  { label: 'Search',      to: '/search',       Icon: SearchIcon },
-  { label: 'Communities', to: '/communities',  Icon: UsersIcon  },
-  { label: 'Feedback',    to: '/feedback',     Icon: FeedbackIcon },
-  { label: 'Contact',     to: '/contact',      Icon: MailIcon   },
+const STATIC_TABS = [
+  { label: 'Home',          to: '/',             Icon: HomeIcon },
+  { label: 'Professionals', to: '/professionals', Icon: UsersIcon },
+  { label: 'Feedback',      to: '/feedback',      Icon: FeedbackIcon },
+  { label: 'Contact',       to: '/contact',       Icon: MailIcon },
 ];
 
 function MobileTabBar() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  /* Mirrors Header's auth listener so mobile users get the same
+     Login → Account swap that desktop shows in the header. */
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, setCurrentUser);
+    return () => unsubscribe();
+  }, []);
+
+  const accountTab = currentUser
+    ? { label: 'Account', to: '/Dashboard', Icon: AccountIcon }
+    : { label: 'Login',   to: '/login',     Icon: AccountIcon };
+
+  const tabs = [...STATIC_TABS, accountTab];
+
   return (
     <nav className={styles.tabBar} aria-label="Primary mobile navigation">
-      {TABS.map(({ label, to, Icon }) => (
+      {tabs.map(({ label, to, Icon }) => (
         <NavLink
           key={label}
           to={to}

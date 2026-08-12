@@ -41,14 +41,12 @@
    Flexbox row that holds every header element side-by-side.
 
    MOBILE (base):
-     Visible items: [logo] ············· [hamburger]
-     margin-left:auto on .hamburger pushes it to the far right
-     when .nav and .loginButton are both display:none.
+     Visible items: [logo] only — .nav and .loginButton/.avatarButton
+     are display:none. Primary nav lives in the bottom MobileTabBar.
 
    DESKTOP (min-width: 768px):
      Visible items: [logo] [── nav ──] [login or avatar]
      .nav has flex:1 so it fills the middle and centers its links.
-     .hamburger becomes display:none.
    ────────────────────────────────────────────────────────────*/
 .container {
   /* ── shared across all breakpoints ── */
@@ -251,109 +249,3 @@
 }
 
 
-/* ── HAMBURGER ────────────────────────────────────────────────
-   MOBILE (base): display:flex — visible, toggles the mobile menu.
-   DESKTOP (min-width: 768px): display:none — desktop nav is used.
-
-   margin-left:auto pushes the button to the far right of the flex
-   row when .nav and .loginButton are hidden on mobile.
-   ────────────────────────────────────────────────────────────*/
-.hamburger {
-  display: none; /* burger menu disabled — was: flex (MOBILE: visible) */
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  padding: var(--spacing-xs);
-  margin-left: auto; /* pushes to the right edge when nav + login are hidden */
-
-  /* Reset <button> browser defaults */
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-@media (min-width: 768px) {
-  .hamburger {
-    display: none; /* DESKTOP: hidden */
-  }
-}
-
-.hamburgerLine {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background-color: var(--color-white);
-  border-radius: 2px;
-  transition: opacity var(--transition-speed-fast) var(--transition-easing);
-}
-
-
-/* ── MOBILE DROPDOWN MENU ─────────────────────────────────────
-   Appears below the fixed header when the hamburger is clicked.
-   JSX conditionally renders this element; CSS handles position + style.
-
-   position:fixed + top:var(--header-height) pins it directly below
-   the header bar regardless of how far the page is scrolled.
-
-   z-index:var(--z-index-dropdown) (100) keeps it above page content
-   but well below the header bar (--z-index-fixed = 1000).
-
-   No desktop styles needed — the hamburger that triggers this is
-   already hidden on desktop.
-   ────────────────────────────────────────────────────────────*/
-.mobileMenu {
-  position: fixed;                   /* stays below the header even when scrolled */
-  top: calc(var(--banner-height) + var(--header-height)); /* flush against the bottom edge of the header */
-  left: 0;
-  right: 0;
-  z-index: var(--z-index-dropdown);  /* 100: above content, below header (1000) */
-
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-md);
-
-  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Each nav item in the mobile menu */
-.mobileNavLink {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-white);
-  padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* subtle separator */
-  text-align: left;
-  transition: opacity var(--transition-speed-fast) var(--transition-easing);
-}
-
-.mobileNavLink:hover {
-  opacity: 0.75;
-  text-decoration: none;
-}
-
-/* Login / "initials — My Profile" button at the bottom of the mobile menu */
-.mobileLoginButton {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-white);
-  border: var(--border-width) solid var(--color-white);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-top: var(--spacing-md); /* separates it from the nav link list */
-  text-align: center;
-  transition:
-    background-color var(--transition-speed-fast) var(--transition-easing),
-    color            var(--transition-speed-fast) var(--transition-easing);
-}
-
-.mobileLoginButton:visited {
-  color: var(--color-white);
-}
-
-.mobileLoginButton:hover {
-  background-color: var(--color-white);
-  color: var(--color-primary);
-  text-decoration: none;
-}
