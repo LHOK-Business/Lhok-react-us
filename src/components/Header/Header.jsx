@@ -1,16 +1,12 @@
 /*
   Header.jsx — Mobile-first layout structure
   ─────────────────────────────────────────────
-  MOBILE:   [logo] ············· [hamburger]
-              ↑ flex row, margin-left:auto on hamburger pushes it right
-              nav + login/avatar are display:none in CSS
+  MOBILE:   [logo] only — nav/login/avatar are display:none in CSS.
+              Primary navigation on mobile lives in MobileTabBar
+              (bottom tab bar) instead of a hamburger menu.
 
   DESKTOP (≥768px via CSS):
             [logo] [── nav ──] [login or avatar]
-              ↑ hamburger becomes display:none in CSS
-
-  The mobile menu is rendered in the React fragment OUTSIDE <header>
-  so it can be position:fixed in CSS without a stacking-context conflict.
 */
 
 import React, { useState, useEffect } from 'react';
@@ -29,7 +25,6 @@ const NAV_ITEMS = [
 ];
 
 function Header() {
-  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // burger menu disabled
   const [currentUser, setCurrentUser] = useState(null);
 
   /* Listen to Firebase auth state — runs once on mount, cleans up on unmount */
@@ -54,9 +49,6 @@ function Header() {
   /* NavLink className helpers — React Router passes { isActive } to the function */
   const getNavLinkClass = ({ isActive }) =>
     isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink;
-
-  const getMobileNavLinkClass = ({ isActive }) =>
-    isActive ? `${styles.mobileNavLink} ${styles.navLinkActive}` : styles.mobileNavLink;
 
   return (
     <>
@@ -100,69 +92,8 @@ function Header() {
             </Link>
           )}
 
-          {/* ── HAMBURGER (mobile only) ────────────────────────────────────
-              CSS: display:flex on mobile, display:none on desktop (≥768px).
-              margin-left:auto in CSS pushes it to the right edge.
-              aria-expanded tells screen readers whether the menu is open. */}
-          {/*
-          <button
-            className={styles.hamburger}
-            onClick={() => setIsMobileMenuOpen(prev => !prev)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <span className={styles.hamburgerLine} />
-            <span className={styles.hamburgerLine} />
-            <span className={styles.hamburgerLine} />
-          </button>
-          */}
-
         </div>
       </header>
-
-      {/* ── MOBILE MENU ───────────────────────────────────────────────────
-          Rendered outside <header> to avoid stacking-context issues.
-          CSS (.mobileMenu) uses position:fixed + top:var(--header-height)
-          to pin it flush against the bottom of the header bar — no inline
-          style needed here. JSX controls visibility via conditional render. */}
-      {/*
-      isMobileMenuOpen && (
-        <nav className={styles.mobileMenu}>
-
-          Nav links — close the menu on tap so the page change is smooth
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.to}
-              className={getMobileNavLinkClass}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-
-          Login / My Profile at the bottom of the mobile menu
-          {currentUser ? (
-            <Link
-              to="/profile"
-              className={styles.mobileLoginButton}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {getInitials(currentUser)} — My Profile
-            </Link>
-          ) : (
-            <Link
-              to="/login"
-              className={styles.mobileLoginButton}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Login
-            </Link>
-          )}
-
-        </nav>
-      )
-      */}
     </>
   );
 }
