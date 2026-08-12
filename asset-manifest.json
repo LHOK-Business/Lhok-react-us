@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2e64c447.css",
-    "main.js": "/static/js/main.40e8f5b7.js",
+    "main.css": "/static/css/main.97d2cca3.css",
+    "main.js": "/static/js/main.15deb079.js",
     "static/media/5.png": "/static/media/5.65b14b0efca145ef4a7a.png",
     "static/media/6.png": "/static/media/6.f4ba9b1171990ccbc8e1.png",
     "static/media/8.png": "/static/media/8.60a47283909d956164d2.png",
@@ -14,11 +14,11 @@
     "static/media/10.png": "/static/media/10.00a944150ec5736bc300.png",
     "static/media/lhoklogo.png": "/static/media/lhoklogo.34c259b0d73c1c281f15.png",
     "index.html": "/index.html",
-    "main.2e64c447.css.map": "/static/css/main.2e64c447.css.map",
-    "main.40e8f5b7.js.map": "/static/js/main.40e8f5b7.js.map"
+    "main.97d2cca3.css.map": "/static/css/main.97d2cca3.css.map",
+    "main.15deb079.js.map": "/static/js/main.15deb079.js.map"
   },
   "entrypoints": [
-    "static/css/main.2e64c447.css",
-    "static/js/main.40e8f5b7.js"
+    "static/css/main.97d2cca3.css",
+    "static/js/main.15deb079.js"
   ]
 }
