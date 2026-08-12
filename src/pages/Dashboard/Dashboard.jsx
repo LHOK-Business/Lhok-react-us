@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import Button from '../../components/Button/Button';
+import DashboardFeedback from '../../components/DashboardFeedback/DashboardFeedback';
 import styles from './Dashboard.module.css';
 
 function Dashboard() {
@@ -67,6 +68,8 @@ function Dashboard() {
 )}
 
         </div>
+
+        {user && <DashboardFeedback />}
 
       </div>
     </div>
