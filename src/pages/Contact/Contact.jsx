@@ -8,6 +8,7 @@ import styles       from './Contact.module.css';
 import { db } from '../../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useToast } from '../../context/ToastContext';
+import { getCountryOfOrigin } from '../../utils/countryOfOrigin';
 
 const SUBJECT_OPTIONS = [
   { value: 'general',  label: 'General Inquiry' },
@@ -60,6 +61,7 @@ function Contact() {
         phone:     form.phone,
         subject:   form.subject,
         message:   form.message,
+        countryOfOrigin: getCountryOfOrigin(),
         createdAt: serverTimestamp(),
       });
 

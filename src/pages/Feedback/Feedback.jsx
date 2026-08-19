@@ -14,6 +14,7 @@ import styles       from './Feedback.module.css';
 import { db } from '../../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useToast } from '../../context/ToastContext';
+import { getCountryOfOrigin } from '../../utils/countryOfOrigin';
 
 // ── OPTIONS ───────────────────────────────────────────────────
 const FIND_METHOD_OPTIONS = [
@@ -137,6 +138,7 @@ function Feedback() {
     try {
       await addDoc(collection(db, 'feedback'), {
         ...form,
+        countryOfOrigin: getCountryOfOrigin(),
         createdAt: serverTimestamp(),
       });
 

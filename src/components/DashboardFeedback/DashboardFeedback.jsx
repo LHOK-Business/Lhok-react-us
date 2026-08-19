@@ -112,7 +112,7 @@ function DashboardFeedback() {
       await addDoc(collection(db, 'dashboardFeedback'), {
         uid: auth.currentUser?.uid,
         ...form,
-        region:    getCountryOfOrigin(),
+        countryOfOrigin: getCountryOfOrigin(),
         createdAt: serverTimestamp(),
       });
 
